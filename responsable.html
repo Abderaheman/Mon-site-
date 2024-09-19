@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsable - Gestion des Produits</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button.add-product {
+            background-color: #28a745;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        button.edit {
+            background-color: #ffc107;
+            color: white;
+        }
+
+        button.delete {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .action-buttons a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Gestion des Produits</h2>
+
+        <!-- Bouton pour ajouter un produit -->
+        <button class="add-product" onclick="location.href='add-product.html'">Ajouter un produit</button>
+
+        <!-- Tableau des produits -->
+        <table id="products-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom du Produit</th>
+                    <th>Catégorie</th>
+                    <th>Prix</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                    <tr>
+                        <td>1</td>
+                        <td>Produit A</td>
+                        <td>Catégorie 1</td>
+                        <td>50 €</td>
+                        <td>
+                            <button class="edit">Modifier</button>
+                            <button class="delete" onclick="deleteProduct(1)">Supprimer</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Produit B</td>
+                        <td>Catégorie 2</td>
+                        <td>75 €</td>
+                        <td>
+                            <button class="edit">Modifier</button>
+                            <button class="delete" onclick="deleteProduct(1)">Supprimer</button>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+
+        <!-- Gestion des commandes -->
+        <h2>Gestion des Commandes</h2>
+        <table id="orders-table">
+            <thead>
+                <tr>
+                    <th>ID Commande</th>
+                    <th>Nom du Client</th>
+                    <th>Date</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Client A</td>
+                    <td>15/09/2024</td>
+                    <td>En attente</td>
+                    <td>
+                        <button class="edit">Valider</button>
+                        <button class="delete">Annuler</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Client B</td>
+                    <td>14/09/2024</td>
+                    <td>Livré</td>
+                    <td>
+                        <button class="edit" disabled>Valider</button>
+                        <button class="delete">Annuler</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProducts();
+            loadOrders();
+        });
+
+        function loadProducts() {
+            fetch('/api/products')
+                .then(response => response.json())
+                .then(products => {
+                    const tableBody = document.querySelector('#products-table tbody');
+                    tableBody.innerHTML = '';
+                    products.forEach(product => {
+                        tableBody.innerHTML += `
+                            <tr>
+                                <td>${product.id}</td>
+                                <td>${product.name}</td>
+                                <td>${product.category}</td>
+                                <td>${product.price} €</td>
+                                <td class="action-buttons">
+                                    <a href="edit-product.html?id=${product.id}"><button class="edit">Modifier</button></a>
+                                    <button class="delete" onclick="deleteProduct(${product.id})">Supprimer</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                })
+                .catch(error => console.error('Erreur:', error));
+        }
+
+        function deleteProduct(id) {
+            fetch(`/api/delete-product/${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Produit supprimé avec succès');
+                loadProducts();
+            })
+            .catch(error => console.error('Erreur:', error));
+        }
+
+        function loadOrders() {
+            fetch('/api/orders')
+                .then(response => response.json())
+                .then(orders => {
+                    const tableBody = document.querySelector('#orders-table tbody');
+                    tableBody.innerHTML = '';
+                    orders.forEach(order => {
+                        tableBody.innerHTML += `
+                            <tr>
+                                <td>${order.id}</td>
+                                <td>${order.clientName}</td>
+                                <td>${order.date}</td>
+                                <td>${order.status}</td>
+                                <td class="action-buttons">
+                                    <button class="edit" onclick="updateOrderStatus(${order.id}, 'validé')">Valider</button>
+                                    <button class="delete" onclick="updateOrderStatus(${order.id}, 'annulé')">Annuler</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                })
+                .catch(error => console.error('Erreur:', error));
+        }
+
+        function updateOrderStatus(id, status) {
+            fetch(`/api/update-order/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ status })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Commande mise à jour avec succès');
+                loadOrders();
+            })
+            .catch(error => console.error('Erreur:', error));
+        }
+    </script>
+
+</body>
+</html>

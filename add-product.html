@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un Produit</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Ajouter un Produit</h2>
+        <form id="add-product-form">
+            <input type="text" id="product-name" placeholder="Nom du Produit" required>
+            <input type="text" id="product-category" placeholder="Catégorie" required>
+            <input type="number" id="product-price" placeholder="Prix" required>
+            <button type="submit">Ajouter</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('add-product-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('product-name').value;
+            const category = document.getElementById('product-category').value;
+            const price = document.getElementById('product-price').value;
+
+            // Appel AJAX pour ajouter le produit (exemple avec fetch API)
+            fetch('/api/add-product', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, category, price })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Produit ajouté avec succès');
+                window.location.href = 'responsable.html'; // Redirection vers la page principale
+            })
+            .catch(error => console.error('Erreur:', error));
+        });
+    </script>
+
+</body>
+</html>

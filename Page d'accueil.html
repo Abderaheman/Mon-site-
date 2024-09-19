@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AB Service</title>
+    <style>
+        /* Style pour le body */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: url('photo3.jpg') no-repeat center center fixed; /* Remplacer par l'URL de l'image choisie */
+            background-size: cover;
+            color: white;
+        }
+
+        /* Style pour le conteneur principal */
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5); /* Ajoute une transparence sur l'image */
+        }
+
+        /* Style pour le nom du site */
+        h1 {
+            font-size: 60px;
+            margin-bottom: 50px;
+        }
+
+        /* Style pour les boutons */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button.connecter {
+            background-color: #28a745;
+        }
+
+        button.creer-compte {
+            background-color: #007bff;
+        }
+
+        button.visiteur {
+            background-color: #17a2b8;
+        }
+
+        button.responsable {
+            background-color: #ffc107;
+        }
+
+        /* Effet au survol */
+        button:hover {
+            opacity: 0.8;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Nom du site -->
+        <h1>AB Service</h1>
+        
+        <!-- Groupe de boutons -->
+        <div class="btn-group">
+            <button class="connecter" onclick="window.location.href='connecter.html'">Se connecter</button>
+            <button class="creer-compte" onclick="window.location.href='creer-compte.html'">Créer un compte</button>
+            <button class="visiteur" onclick="window.location.href='visiteur.html'">Visiteur</button>
+            <button class="responsable" onclick="window.location.href='responsable.html'">Responsable</button>
+        </div>
+    </div>
+
+</body>
+</html>

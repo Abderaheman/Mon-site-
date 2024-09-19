@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AB Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        header {
+            background-color: #06e10e;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+        .container {
+            width: 50%;
+            margin: 20px auto;
+            text-align: center;
+        }
+        .service-card {
+            background-color: #ffffff;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Bienvenue sur AB Service</h1>
+    <nav>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+
+        <select id="langSelector" onchange="changeLanguage()">
+            <option value="fr">Français</option>
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+        </select>
+        
+    </nav>
+</header>
+
+<section id="about" class="container">
+    <h2>À propos de moi</h2>
+    <p>Je suis développeur Web et designer spécialisé dans la création de sites web, d'applications mobiles, et la conception de logos.</p> 
+</section>
+
+<section id="services" class="container">
+    <h2>Mes Services</h2>
+    <div class="service-card">
+        <h3>Création de Sites Web</h3>
+        <p>Des sites modernes et réactifs adaptés à vos besoins professionnels.</p>
+    </div>
+    <div class="service-card">
+        <h3>Applications Mobiles</h3>
+        <p>Des applications mobiles performantes pour iOS et Android.</p>
+    </div>
+    <div class="service-card">
+        <h3>Conception de Logos</h3>
+        <p>Des logos uniques qui reflètent l'identité de votre marque.</p>
+    </div>
+</section>
+
+<section id="portfolio" class="container">
+    <h2>Mon Portfolio</h2>
+    <p>Quelques exemples de mes projets réalisés pour mes clients.</p>
+    <!-- Ajoute ici les projets avec images -->
+</section>
+
+
+<section id="contact" class="container">
+    <h2>Contactez-moi</h2>
+    
+    <p>Pour toute demande de projet ou de devis, n'hésitez pas à me contacter via les informations ci-dessous :</p>
+    
+    <ul>
+        <li><strong>Email :</strong> <a href="mailto:tonemail@example.com">tonemail@example.com</a></li>
+        <li><strong>Téléphone :</strong> <a href="tel:+222 31315055">+222 31 31 50 55</a></li>
+        <li><strong>Adresse :</strong> (18.)</li>
+        <li><strong>LinkedIn :</strong> <a href="https://wa.me/787338497" target="_blank">Mon Whatessap</a></li>
+    </ul>
+    
+    <form action="#" method="post" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Votre nom" required><br>
+        <input type="email" name="email" placeholder="Votre e-mail" required><br>
+        <textarea name="message" placeholder="Votre message" required></textarea><br>
+        
+        <label for="photo">Télécharger une photo :</label><br>
+        <input type="file" id="photo" name="photo" accept="image/*"><br>
+        
+        <label for="photo-description">Description de la photo :</label><br>
+        <textarea id="photo-description" name="photo-description" placeholder="Décrivez la photo ici"></textarea><br>
+        
+        <button type="submit">Envoyer</button>
+    </form>
+</section>
+
+<footer>
+    <p>Contacter Moi Sur Mon Whatessap : <a href="https://wa.me/787338497" target="_blank">LinkedIn</a> | <a href="#">Twitter</a></p>
+    <p>&copy; 2024 AB Service. Tous droits réservés.</p>
+</footer>
+
+
+</body>
+</html>

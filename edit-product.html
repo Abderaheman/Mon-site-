@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier un Produit</title>
+    <style>
+        /* Style similaire à la page Ajouter un Produit */
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Modifier un Produit</h2>
+        <form id="edit-product-form">
+            <input type="hidden" id="product-id">
+            <input type="text" id="product-name" placeholder="Nom du Produit" required>
+            <input type="text" id="product-category" placeholder="Catégorie" required>
+            <input type="number" id="product-price" placeholder="Prix" required>
+            <button type="submit">Modifier</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('edit-product-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const id = document.getElementById('product-id').value;
+            const name = document.getElementById('product-name').value;
+            const category = document.getElementById('product-category').value;
+            const price = document.getElementById('product-price').value;
+
+            // Appel AJAX pour modifier le produit
+            fetch(`/api/edit-product/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, category, price })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Produit modifié avec succès');
+                window.location.href = 'responsable.html';
+            })
+            .catch(error => console.error('Erreur:', error));
+        });
+
+        // Remplir les champs du formulaire avec les données du produit
+        const productId = new URLSearchParams(window.location.search).get('id');
+        fetch(`/api/product/${productId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('product-id').value = data.id;
+                document.getElementById('product-name').value = data.name;
+                document.getElementById('product-category').value = data.category;
+                document.getElementById('product-price').value = data.price;
+            })
+            .catch(error => console.error('Erreur:', error));
+    </script>
+
+</body>
+</html>
